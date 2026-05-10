@@ -3,6 +3,8 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 
+const fileUpload = require("express-fileupload");
+
 // database
 const connectDB = require("./db/connect");
 
@@ -13,7 +15,9 @@ const productRouter = require("./routes/product_routes");
 const notFoundMiddleware = require("./middleware/not_found");
 const errorHandlerMiddleware = require("./middleware/error_handler");
 
+app.use(express.static("./public"))
 app.use(express.json());
+app.use(fileUpload());
 
 app.get("/", (req, res) => {
   res.send("<h1>File Upload Starter</h1>");
